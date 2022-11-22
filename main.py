@@ -4,8 +4,8 @@ import cloudscraper
 scraper = cloudscraper.create_scraper(delay=10, browser='chrome') 
 
 def ads_grabber():
-    for i in range (1, 251):    
-        url = f'https://list.am/ru/category/56/{i}/?pfreq=1&type=1&po=1'
+    for page_number in range (1, 251):    
+        url = f'https://list.am/ru/category/56/{page_number}/?pfreq=1&type=1&po=1'
         response = scraper.get(url).status_code
         if (response != 200):
             break
@@ -31,19 +31,19 @@ def ads_parse(link):
     soup = beauty(info, 'html.parser')
     data = soup.find(id = 'pcontent')
     
-    dataset = data.find_all('div', class_ = 'attr g')
-    adsInfo = {}
+    ad_property_set = data.find_all('div', class_ = 'attr g')
+    ad_property_dict = {}
     get_ads_photos(soup)
-    adsInfo['Расположение'] = parse_location(soup)
-    adsInfo['Даты'] = parse_dates(soup)
-    adsInfo['Цены'] = parse_prices(soup)
-    adsInfo['Описание'] = parse_ads_description(soup)
-    adsInfo['Арендодатель'] = landlord_type_parse(soup)
-    for i in dataset:
-        for j in i:
-            (key, value) = add_parse_info(j)
-            adsInfo[key] = value
-    return adsInfo
+    ad_property_dict['Расположение'] = parse_location(soup)
+    ad_property_dict['Даты'] = parse_dates(soup)
+    ad_property_dict['Цены'] = parse_prices(soup)
+    ad_property_dict['Описание'] = parse_ads_description(soup)
+    ad_property_dict['Арендодатель'] = landlord_type_parse(soup)
+    for ad_property in ad_property_set:
+        for ad_property_content in ad_property:
+            (key, value) = add_parse_info(ad_property_content)
+            ad_property_dict[key] = value
+    return ad_property_dict
 
 def parse_currency(text):
     if '$' in text:
@@ -89,21 +89,21 @@ def landlord_type_parse(data):
 
 def parse_dates(data):
     footer = data.find('div', class_ = 'footer')
-    spans_list = footer.select('span')
-    result = {}
-    for i in spans_list:
-        if 'Размещено' in i.text:
-            result['Дата размещения'] = i.text.split(' ')[1]
-        if 'Обновлено' in i.text:
-            result ['Обновления'] = i.text.split(' ')[1]
-    return result
+    date_span_list = footer.select('span')
+    dates = {}
+    for date_span in date_span_list:
+        if 'Размещено' in date_span.text:
+            dates['Дата размещения'] = date_span.text.split(' ')[1]
+        if 'Обновлено' in date_span.text:
+            dates ['Обновления'] = date_span.text.split(' ')[1]
+    return dates
 
 def parse_location(data):
     location_div = data.find('div', class_ = 'loc')
     location = location_div.findChild('a').text
     return location
 
-def get_ads_photos(data):
+def get_ads_photos(data): #work in progress
     pics_div = data.find('div', class_ = 'p')
     pics_list = pics_div.findChildren('div')
     for pic_div in pics_list:
@@ -111,7 +111,7 @@ def get_ads_photos(data):
     return 0
 
 list = ads_parse('ru/item/18563494')
-for i in list.keys():
-    print(i)
-for i in list.values():
-    print(i)
+for key in list.keys():
+    print(key)
+for value in list.values():
+    print(value)
