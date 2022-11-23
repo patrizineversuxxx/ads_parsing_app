@@ -11,12 +11,12 @@ def ads_grabber():
             print (response.status_code)
             break
         info = response.text
-        soup = beauty(info, "html.parser")
+        soup = beauty(info, 'html.parser')
         hotLinks = soup.find_all('a', class_='h')
         for link in hotLinks:
             link = link.get('href')
             print(link + ' hot')
-        basicLinks = soup.find(class_ = "gl").findChildren('a')
+        basicLinks = soup.find(class_ = 'gl').findChildren('a')
         for link in basicLinks:
             link = link.get('href')
             print(link + ' base')
@@ -52,14 +52,14 @@ def ads_parse(link):
 
 def parse_currency(text):
     if '$' in text:
-        value = int(text[1:].split(" ")[0].replace(",", ""))
-        return ("USD", value)
+        value = int(text[1:].split(' ')[0].replace(',', ''))
+        return ('USD', value)
     elif '֏' in text:
-        value = int(text.split(" ")[0].replace(",", ""))
-        return ("AMD", value)
+        value = int(text.split(' ')[0].replace(',', ''))
+        return ('AMD', value)
     elif '₽' in text:
-        value = int(text.split(" ")[0].replace(",", ""))
-        return ("RUB", value)
+        value = int(text.split(' ')[0].replace(',', ''))
+        return ('RUB', value)
     else:
         raise Exception
 
