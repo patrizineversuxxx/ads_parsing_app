@@ -6,10 +6,11 @@ scraper = cloudscraper.create_scraper(delay=10, browser='chrome')
 def ads_grabber():
     for page_number in range (1, 251):    
         url = f'https://list.am/ru/category/56/{page_number}/?pfreq=1&type=1&po=1'
-        response = scraper.get(url).status_code
-        if (response != 200):
+        response = scraper.get(url)
+        if (response.status_code != 200):
+            print (response.status_code)
             break
-        info = scraper.get(url).text
+        info = response.text
         soup = beauty(info, "html.parser")
         hotLinks = soup.find_all('a', class_='h')
         for link in hotLinks:
@@ -27,7 +28,11 @@ def add_parse_info(data):
 
 def ads_parse(link):
     url = 'https://list.am/' + link
-    info = scraper.get(url).text
+    response = scraper.get(url)
+    if (response.status_code != 200):
+        print (response.status_code)
+        return
+    info = response.text
     soup = beauty(info, 'html.parser')
     data = soup.find(id = 'pcontent')
     
