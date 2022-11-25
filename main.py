@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup as beauty
+from enum import Enum
 import cloudscraper
 
 scraper = cloudscraper.create_scraper(delay=10, browser='chrome') 
@@ -120,3 +121,35 @@ for key in list.keys():
     print(key)
 for value in list.values():
     print(value)
+
+class BuildingType(Enum):  
+    monolith = 'Монолит'
+    stone = 'Каменное'
+    panel = 'Панельное'
+    cassette = 'Кассетное'
+    wooden = 'Деревянное'
+    brick = 'Кирпичное'
+
+class BuildingInfo:
+    def __init__(self, building_type: BuildingType, is_new_building: bool, 
+        has_elevator: bool, floors_count: int):
+        self.__building_type = building_type
+        self.__is_new_building = is_new_building
+        self.__has_elevator = has_elevator
+        self.__floors_count = floors_count
+
+    @property
+    def building_type(self) -> BuildingType: 
+        return self.__building_type
+
+    @property
+    def is_new_building(self) -> bool:
+        return self.__is_new_building
+
+    @property
+    def has_elevator(self) -> bool:
+        return self.__has_elevator
+
+    @property
+    def floors_count(self) -> int:
+        return self.__floors_count
