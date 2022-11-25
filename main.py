@@ -153,3 +153,67 @@ class BuildingInfo:
     @property
     def floors_count(self) -> int:
         return self.__floors_count
+
+class RenovationType(Enum):
+    without_renovation = 'Без ремонта'
+    partly_renovated = 'Частичный ремонт'
+    redecorated = 'Косметический ремонт'
+    euro_renovation = 'Евроремонт'
+    designers_renovation = 'Дизайнерский ремонт'
+    major_overhauled = 'Капитальный ремонт'
+
+class ApartmentInfo:
+    def __init__(self, apart_square : float, rooms_count : int, 
+    smartins_count : int, apart_height : float, apart_floor : int, has_balcony : bool, 
+    is_furnitured : bool, renovation_type : RenovationType, features : str, household_features : str
+):
+        self.__apart_square = apart_square
+        self.__rooms_count = rooms_count
+        self.__smartins_count = smartins_count
+        self.__apart_height = apart_height
+        self.__apart_floor = apart_floor
+        self.__has_balcony = has_balcony
+        self.__is_furnitured = is_furnitured
+        self.__renovation_type = renovation_type
+        self.__features = features
+        self.__household_features = household_features
+
+    @property
+    def apart_square(self) -> float:
+        return self.__apart_square
+
+    @property
+    def rooms_count(self) -> int:
+        return self.__rooms_count
+
+    @property
+    def smartins_count(self) -> int:
+        return self.__smartins_count
+
+    @property
+    def apart_height(self) -> float:
+        return self.__apart_height
+
+    @property
+    def apart_floor(self) -> int:
+        return self.__apart_floor
+
+    @property
+    def has_balcony(self) -> bool:
+        return self.__has_balcony
+
+    @property
+    def is_furnitured(self) -> bool:
+        return self.__is_furnitured
+
+    @property
+    def renovation_type(self) -> RenovationType:
+        return self.__renovation_type
+
+    @property
+    def features(self) -> str:
+        return self.__features
+
+    @property
+    def household_features(self) -> str:
+        return self.__household_features
