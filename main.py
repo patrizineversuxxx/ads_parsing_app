@@ -123,19 +123,20 @@ for value in list.values():
     print(value)
 
 class BuildingType(Enum):  
-    monolith = 'Монолит'
-    stone = 'Каменное'
-    panel = 'Панельное'
-    cassette = 'Кассетное'
-    wooden = 'Деревянное'
-    brick = 'Кирпичное'
+    Monolith = 'Монолит'
+    Stone = 'Каменное'
+    Panel = 'Панельное'
+    Cassette = 'Кассетное'
+    Wooden = 'Деревянное'
+    Brick = 'Кирпичное'
 
 class BuildingInfo:
     def __init__(self, 
             building_type: BuildingType, 
             is_new_building: bool, 
             has_elevator: bool, 
-            floor_number: int):
+            floor_number: int
+    ):
         self._building_type = building_type
         self._is_new_building = is_new_building
         self._has_elevator = has_elevator
@@ -158,12 +159,12 @@ class BuildingInfo:
         return self._floor_number
 
 class RenovationType(Enum):
-    without_renovation = 'Без ремонта'
-    partly_renovated = 'Частичный ремонт'
-    redecorated = 'Косметический ремонт'
-    euro_renovation = 'Евроремонт'
-    designers_renovation = 'Дизайнерский ремонт'
-    major_overhauled = 'Капитальный ремонт'
+    WithoutRenovation = 'Без ремонта'
+    PartlyRenovated = 'Частичный ремонт'
+    Redecorated = 'Косметический ремонт'
+    EuroRenovation = 'Евроремонт'
+    DesignersRenovation = 'Дизайнерский ремонт'
+    MajorOverhauled = 'Капитальный ремонт'
 
 class ApartmentInfo:
     def __init__(self, 
@@ -177,7 +178,7 @@ class ApartmentInfo:
             renovation_type : RenovationType, 
             features : str, 
             household_features : str
-):
+    ):
         self._square = square
         self._rooms_count = rooms_count
         self._smartins_count = smartins_count
