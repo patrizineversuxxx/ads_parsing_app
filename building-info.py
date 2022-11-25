@@ -1,4 +1,12 @@
-import BuildingType 
+from enum import Enum 
+
+class BuildingType(Enum):  
+    Monolith = 'Монолит'
+    Stone = 'Каменное'
+    Panel = 'Панельное'
+    Cassette = 'Кассетное'
+    Wooden = 'Деревянное'
+    Brick = 'Кирпичное'
 
 class BuildingInfo:
     def __init__(self, 
