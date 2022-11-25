@@ -131,28 +131,31 @@ class BuildingType(Enum):
     brick = 'Кирпичное'
 
 class BuildingInfo:
-    def __init__(self, building_type: BuildingType, is_new_building: bool, 
-        has_elevator: bool, floors_count: int):
-        self.__building_type = building_type
-        self.__is_new_building = is_new_building
-        self.__has_elevator = has_elevator
-        self.__floors_count = floors_count
+    def __init__(self, 
+            building_type: BuildingType, 
+            is_new_building: bool, 
+            has_elevator: bool, 
+            floor_number: int):
+        self._building_type = building_type
+        self._is_new_building = is_new_building
+        self._has_elevator = has_elevator
+        self._floor_number = floor_number
 
     @property
     def building_type(self) -> BuildingType: 
-        return self.__building_type
+        return self._building_type
 
     @property
     def is_new_building(self) -> bool:
-        return self.__is_new_building
+        return self._is_new_building
 
     @property
     def has_elevator(self) -> bool:
-        return self.__has_elevator
+        return self._has_elevator
 
     @property
-    def floors_count(self) -> int:
-        return self.__floors_count
+    def floor_number(self) -> int:
+        return self._floor_number
 
 class RenovationType(Enum):
     without_renovation = 'Без ремонта'
@@ -163,57 +166,65 @@ class RenovationType(Enum):
     major_overhauled = 'Капитальный ремонт'
 
 class ApartmentInfo:
-    def __init__(self, apart_square : float, rooms_count : int, 
-    smartins_count : int, apart_height : float, apart_floor : int, has_balcony : bool, 
-    is_furnitured : bool, renovation_type : RenovationType, features : str, household_features : str
+    def __init__(self, 
+            square : float, 
+            rooms_count : int, 
+            smartins_count : int, 
+            apart_height : float, 
+            apart_floor : int, 
+            has_balcony : bool, 
+            is_furnitured : bool, 
+            renovation_type : RenovationType, 
+            features : str, 
+            household_features : str
 ):
-        self.__apart_square = apart_square
-        self.__rooms_count = rooms_count
-        self.__smartins_count = smartins_count
-        self.__apart_height = apart_height
-        self.__apart_floor = apart_floor
-        self.__has_balcony = has_balcony
-        self.__is_furnitured = is_furnitured
-        self.__renovation_type = renovation_type
-        self.__features = features
-        self.__household_features = household_features
+        self._square = square
+        self._rooms_count = rooms_count
+        self._smartins_count = smartins_count
+        self._apart_height = apart_height
+        self._apart_floor = apart_floor
+        self._has_balcony = has_balcony
+        self._is_furnitured = is_furnitured
+        self._renovation_type = renovation_type
+        self._features = features
+        self._household_features = household_features
 
     @property
-    def apart_square(self) -> float:
-        return self.__apart_square
+    def square(self) -> float:
+        return self._square
 
     @property
     def rooms_count(self) -> int:
-        return self.__rooms_count
+        return self._rooms_count
 
     @property
     def smartins_count(self) -> int:
-        return self.__smartins_count
+        return self._smartins_count
 
     @property
     def apart_height(self) -> float:
-        return self.__apart_height
+        return self._apart_height
 
     @property
     def apart_floor(self) -> int:
-        return self.__apart_floor
+        return self._apart_floor
 
     @property
     def has_balcony(self) -> bool:
-        return self.__has_balcony
+        return self._has_balcony
 
     @property
     def is_furnitured(self) -> bool:
-        return self.__is_furnitured
+        return self._is_furnitured
 
     @property
     def renovation_type(self) -> RenovationType:
-        return self.__renovation_type
+        return self._renovation_type
 
     @property
     def features(self) -> str:
-        return self.__features
+        return self._features
 
     @property
     def household_features(self) -> str:
-        return self.__household_features
+        return self._household_features
