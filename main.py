@@ -1,8 +1,22 @@
 from bs4 import BeautifulSoup as beauty
-from enum import Enum
+from building_info import *
 import cloudscraper
 
 scraper = cloudscraper.create_scraper(delay=10, browser='chrome') 
+
+def parse_building_info(data) -> BuildingInfo:
+    dict = {}
+    for attribute in data.findChildren('div', class_= 'c'):
+        (key, value) = add_parse_info(attribute)
+        dict[key] = value
+
+    building_type = BuildingType(dict['Тип здания'])
+    is_new = dict['Новостройка'] == 'Да'
+    has_elevator = dict['Лифт'] == 'Есть'
+    floor_number = int(dict['Этажей в доме'])
+    
+    return BuildingInfo(building_type, is_new, has_elevator, floor_number)
+
 
 def ads_grabber():
     for page_number in range (1, 251):    
@@ -45,6 +59,9 @@ def ads_parse(link):
     ad_property_dict['Цены'] = parse_prices(soup)
     ad_property_dict['Описание'] = parse_ads_description(soup)
     ad_property_dict['Арендодатель'] = landlord_type_parse(soup)
+
+    a = parse_building_info(ad_property_set[0])
+
     for ad_property in ad_property_set:
         for ad_property_content in ad_property:
             (key, value) = add_parse_info(ad_property_content)
