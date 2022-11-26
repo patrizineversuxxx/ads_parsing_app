@@ -44,15 +44,18 @@ def add_parse_info(data):
 def ads_parse(link):
     url = 'https://list.am/' + link
     response = scraper.get(url)
+
     if (response.status_code != 200):
         print (response.status_code)
         return
+
     info = response.text
     soup = beauty(info, 'html.parser')
     data = soup.find(id = 'pcontent')
     
     ad_property_set = data.find_all('div', class_ = 'attr g')
     ad_property_dict = {}
+
     get_ads_photos(soup)
     ad_property_dict['Расположение'] = parse_location(soup)
     ad_property_dict['Даты'] = parse_dates(soup)
@@ -114,6 +117,7 @@ def parse_dates(data):
     footer = data.find('div', class_ = 'footer')
     date_span_list = footer.select('span')
     dates = {}
+
     for date_span in date_span_list:
         if 'Размещено' in date_span.text:
             dates['Дата размещения'] = date_span.text.split(' ')[1]
@@ -129,6 +133,7 @@ def parse_location(data):
 def get_ads_photos(data): #work in progress
     pics_div = data.find('div', class_ = 'p')
     pics_list = pics_div.findChildren('div')
+    
     for pic_div in pics_list:
         print(pic_div.select_one('img').get('src'))
     return 0
