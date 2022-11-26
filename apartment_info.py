@@ -12,7 +12,7 @@ class ApartmentInfo:
     def __init__(self, 
             square : float, 
             room_number : int, 
-            smartins_count : int, 
+            smartin_number : int, 
             height : float, 
             floor : int, 
             has_balcony : bool, 
@@ -23,7 +23,7 @@ class ApartmentInfo:
     ):
         self._square = square
         self._room_number = room_number
-        self._smartins_count = smartins_count
+        self._smartin_number = smartin_number
         self._height = height
         self._floor = floor
         self._has_balcony = has_balcony
@@ -41,8 +41,8 @@ class ApartmentInfo:
         return self._room_number
 
     @property
-    def smartins_count(self) -> int:
-        return self._smartins_count
+    def smartin_number(self) -> int:
+        return self._smartin_number
 
     @property
     def height(self) -> float:
