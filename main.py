@@ -1,14 +1,19 @@
 from bs4 import BeautifulSoup as beauty
 from building_info import *
+from apartment_info import *
 import cloudscraper
 
 scraper = cloudscraper.create_scraper(delay=10, browser='chrome') 
 
-def parse_building_info(data) -> BuildingInfo:
+def extract_attributes(data) -> dict:
     dict = {}
     for attribute in data.findChildren('div', class_= 'c'):
         (key, value) = add_parse_info(attribute)
         dict[key] = value
+    return dict
+
+def parse_building_info(data) -> BuildingInfo:
+    dict = extract_attributes(data)
 
     building_type = BuildingType(dict['Тип здания'])
     is_new = dict['Новостройка'] == 'Да'
@@ -17,6 +22,23 @@ def parse_building_info(data) -> BuildingInfo:
     
     return BuildingInfo(building_type, is_new, has_elevator, floor_number)
 
+def parse_apartment_info(data) -> ApartmentInfo:
+    dict = extract_attributes(data)
+
+    square = int(dict['Общая площадь'].split(' ')[0])
+    room_number = int(dict['Количество комнат']) 
+    smartin_number = int(dict['Количество санузлов'])
+    height = float(dict['Высота потолков'].split(' ')[0])
+    floor = int(dict['Этаж']) 
+    has_balcony = dict['Балкон'] != 'Нет'
+    is_furnitured = dict['Мебель'] != 'Нет'
+    renovation_type = RenovationType(dict['Ремонт'])
+    features = dict['Удобства']
+    household_features = dict['Бытовая техника']
+
+    return ApartmentInfo(square, room_number, smartin_number, 
+                         height, floor, has_balcony, is_furnitured, 
+                        renovation_type, features, household_features)
 
 def ads_grabber():
     for page_number in range (1, 251):    
@@ -64,7 +86,7 @@ def ads_parse(link):
     ad_property_dict['Арендодатель'] = landlord_type_parse(soup)
 
     a = parse_building_info(ad_property_set[0])
-
+    b = parse_apartment_info(ad_property_set[1])
     for ad_property in ad_property_set:
         for ad_property_content in ad_property:
             (key, value) = add_parse_info(ad_property_content)
@@ -133,7 +155,7 @@ def parse_location(data):
 def get_ads_photos(data): #work in progress
     pics_div = data.find('div', class_ = 'p')
     pics_list = pics_div.findChildren('div')
-    
+
     for pic_div in pics_list:
         print(pic_div.select_one('img').get('src'))
     return 0

@@ -10,7 +10,7 @@ class RenovationType(Enum):
     
 class ApartmentInfo:
     def __init__(self, 
-            square : float, 
+            square : int, 
             room_number : int, 
             smartin_number : int, 
             height : float, 
@@ -33,7 +33,7 @@ class ApartmentInfo:
         self._household_features = household_features
 
     @property
-    def square(self) -> float:
+    def square(self) -> int:
         return self._square
 
     @property
