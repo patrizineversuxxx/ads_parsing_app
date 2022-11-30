@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup as beauty
-import model
+from model import *
 from datetime import date
-
   
 def get_key_value_pair(data) -> tuple:
     key = data.findChild('div', class_ = 't').text
