@@ -1,6 +1,7 @@
-from enum import Enum 
+from enum import Enum
 
-class BuildingType(Enum):  
+
+class BuildingType(Enum):
     Monolith = 'Монолит'
     Stone = 'Каменное'
     Panel = 'Панельное'
@@ -8,20 +9,21 @@ class BuildingType(Enum):
     Wooden = 'Деревянное'
     Brick = 'Кирпичное'
 
+
 class BuildingInfo:
-    def __init__(self, 
-            building_type: BuildingType, 
-            is_new_building: bool, 
-            has_elevator: bool, 
-            floor_number: int
-    ):
+    def __init__(self,
+                 building_type: BuildingType,
+                 is_new_building: bool,
+                 has_elevator: bool,
+                 floor_number: int
+                 ):
         self._building_type = building_type
         self._is_new_building = is_new_building
         self._has_elevator = has_elevator
         self._floor_number = floor_number
 
     @property
-    def building_type(self) -> BuildingType: 
+    def building_type(self) -> BuildingType:
         return self._building_type
 
     @property

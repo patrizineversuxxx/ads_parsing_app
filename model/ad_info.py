@@ -1,15 +1,17 @@
 from enum import Enum
 from datetime import date
 
+
 class LandLordType(Enum):
     realtor = "Агентство"
     private = "Частное"
 
+
 class Prices:
-    def __init__(self, amd : int, usd : int, rub : int):
-            self._amd = amd
-            self._usd = usd
-            self._rub = rub
+    def __init__(self, amd: int, usd: int, rub: int):
+        self._amd = amd
+        self._usd = usd
+        self._rub = rub
 
     @property
     def amd(self) -> int:
@@ -26,14 +28,14 @@ class Prices:
 
 class AdInfo:
     def __init__(self,
-            image_links : list,
-            address : str, 
-            created : date,
-            updated : date,
-            prices : Prices, 
-            description : str, 
-            landlord_type : LandLordType         
-    ):
+                 image_links: list,
+                 address: str,
+                 created: date,
+                 updated: date,
+                 prices: Prices,
+                 description: str,
+                 landlord_type: LandLordType
+                 ):
         self._image_links = image_links
         self._address = address
         self._created = created

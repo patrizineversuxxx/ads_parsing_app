@@ -2,17 +2,20 @@ from bs4 import BeautifulSoup as beauty
 from model import *
 from datetime import date
 
+
 def get_key_value_pair(data):
-    key = data.findChild('div', class_ = 't').text
-    value = data.findChild('div', class_ = 'i').text
+    key = data.findChild('div', class_='t').text
+    value = data.findChild('div', class_='i').text
     return (key, value)
+
 
 def extract_attributes(data) -> dict:
     dict = {}
-    for attribute in data.findChildren('div', class_= 'c'):
+    for attribute in data.findChildren('div', class_='c'):
         (key, value) = get_key_value_pair(attribute)
         dict[key] = value
     return dict
+
 
 def parse_currency(text):
     if '$' in text:
@@ -27,10 +30,11 @@ def parse_currency(text):
     else:
         raise Exception
 
+
 def parse_prices(data) -> Prices:
     result = {}
 
-    price_span = data.find('span', class_= 'xprice')
+    price_span = data.find('span', class_='xprice')
     price_text = price_span.select_one('span').text
     cur, amount = parse_currency(price_text)
     result[cur] = amount
@@ -45,18 +49,21 @@ def parse_prices(data) -> Prices:
 
     return Prices(result['AMD'], result['USD'], result['RUB'])
 
+
 def parse_description(data):
-    description = data.find('div', class_ = 'body').text
-    
-    return description.replace('Переведено с армянского','')
+    description = data.find('div', class_='body').text
+
+    return description.replace('Переведено с армянского', '')
+
 
 def parse_landlord_type(data):
-    landlord_type = data.find('span', class_ = 'clabel')
+    landlord_type = data.find('span', class_='clabel')
 
     if (landlord_type == None):
         return LandLordType.private
     else:
         return LandLordType.realtor
+
 
 def str_to_date_converter(string) -> date:
     string = string.split('.')
@@ -66,8 +73,9 @@ def str_to_date_converter(string) -> date:
 
     return date(year, month, day)
 
+
 def parse_dates(data):
-    footer = data.find('div', class_ = 'footer')
+    footer = data.find('div', class_='footer')
     date_span_list = footer.select('span')
     created = 0
     updated = 0
@@ -80,13 +88,15 @@ def parse_dates(data):
 
     return created, updated
 
+
 def parse_address(data):
-    location_div = data.find('div', class_ = 'loc')
+    location_div = data.find('div', class_='loc')
     location = location_div.findChild('a').text
     return location
 
-def parse_images_list(data): #work in progress
-    pics_div = data.find('div', class_ = 'p')
+
+def parse_images_list(data):  # work in progress
+    pics_div = data.find('div', class_='p')
     pics_list = pics_div.findChildren('div')
 
     for pic_div in pics_list:
@@ -101,26 +111,28 @@ def parse_building_info(data) -> BuildingInfo:
     is_new = dict['Новостройка'] == 'Да'
     has_elevator = dict['Лифт'] == 'Есть'
     floor_number = int(dict['Этажей в доме'])
-    
+
     return BuildingInfo(building_type, is_new, has_elevator, floor_number)
+
 
 def parse_apartment_info(data) -> ApartmentInfo:
     attributes = extract_attributes(data)
 
     square = int(attributes['Общая площадь'].split(' ')[0])
-    room_number = int(attributes['Количество комнат']) 
+    room_number = int(attributes['Количество комнат'])
     smartin_number = int(attributes['Количество санузлов'])
     height = float(attributes['Высота потолков'].split(' ')[0])
-    floor = int(attributes['Этаж']) 
+    floor = int(attributes['Этаж'])
     has_balcony = attributes['Балкон'] != 'Нет'
     is_furnitured = attributes['Мебель'] != 'Нет'
     renovation_type = RenovationType(attributes['Ремонт'])
     features = attributes['Удобства']
     household_features = attributes['Бытовая техника']
 
-    return ApartmentInfo(square, room_number, smartin_number, 
-                        height, floor, has_balcony, is_furnitured, 
-                        renovation_type, features, household_features)
+    return ApartmentInfo(square, room_number, smartin_number,
+                         height, floor, has_balcony, is_furnitured,
+                         renovation_type, features, household_features)
+
 
 def parse_ad_info(data):
     images_links = list
@@ -132,22 +144,23 @@ def parse_ad_info(data):
     description = parse_description(data)
     landlord_type = parse_landlord_type(data)
 
-    return AdInfo(images_links, address, created, 
-            updated, prices, description, 
-            landlord_type)
+    return AdInfo(images_links, address, created,
+                  updated, prices, description,
+                  landlord_type)
+
 
 def get_ad_content(scraper, link):
     url = 'https://list.am/' + link
     response = scraper.get(url)
 
     if (response.status_code != 200):
-        print (response.status_code)
+        print(response.status_code)
         return
 
     info = response.text
     soup = beauty(info, 'html.parser')
-    data = soup.find(id = 'pcontent')
-    
+    data = soup.find(id='pcontent')
+
     ad_info = parse_ad_info(data)
     building_info = parse_building_info(data)
     apartment_info = parse_apartment_info(data)

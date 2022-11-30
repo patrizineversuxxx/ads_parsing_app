@@ -1,4 +1,5 @@
-from enum import Enum 
+from enum import Enum
+
 
 class RenovationType(Enum):
     WithoutRenovation = 'Без ремонта'
@@ -7,20 +8,21 @@ class RenovationType(Enum):
     EuroRenovation = 'Евроремонт'
     DesignersRenovation = 'Дизайнерский ремонт'
     MajorOverhauled = 'Капитальный ремонт'
-    
+
+
 class ApartmentInfo:
-    def __init__(self, 
-            square : int, 
-            room_number : int, 
-            smartin_number : int, 
-            height : float, 
-            floor : int, 
-            has_balcony : bool, 
-            is_furnitured : bool, 
-            renovation_type : RenovationType, 
-            features : str, 
-            household_features : str
-    ):
+    def __init__(self,
+                 square: int,
+                 room_number: int,
+                 smartin_number: int,
+                 height: float,
+                 floor: int,
+                 has_balcony: bool,
+                 is_furnitured: bool,
+                 renovation_type: RenovationType,
+                 features: str,
+                 household_features: str
+                 ):
         self._square = square
         self._room_number = room_number
         self._smartin_number = smartin_number
