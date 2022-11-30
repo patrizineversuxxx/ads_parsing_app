@@ -128,8 +128,9 @@ def parse_apartment_info(data) -> ApartmentInfo:
 def parse_ad_info(data):
     images_links = list
     address = parse_address(data)
-    created = parse_dates(data)[0]
-    updated = parse_dates(data)[1]
+    dates = parse_dates(data)
+    created = dates[0]
+    updated = dates[1]
     prices = parse_prices(data)
     description = parse_ads_description(data)
     landlord_type = landlord_type_parse(data)
