@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup as beauty
-from building_info import *
-from apartment_info import *
-from ad_info import *
+import model
 from datetime import date
 
   
