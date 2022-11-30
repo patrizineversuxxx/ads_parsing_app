@@ -1,5 +1,5 @@
 from enum import Enum
-import datetime
+from datetime import date
 
 class LandLordType(Enum):
     realtor = "Агентство"
@@ -28,8 +28,8 @@ class AdInfo:
     def __init__(self,
             image_links : list,
             address : str, 
-            created : datetime,
-            updated : datetime,
+            created : date,
+            updated : date,
             prices : Prices, 
             description : str, 
             landlord_type : LandLordType         
@@ -51,11 +51,11 @@ class AdInfo:
         return self._address
 
     @property
-    def created(self) -> datetime:
+    def created(self) -> date:
         return self._created
 
     @property
-    def updated(self) -> datetime:
+    def updated(self) -> date:
         return self._updated
 
     @property
