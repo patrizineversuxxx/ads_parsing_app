@@ -5,7 +5,7 @@ from ad_info import *
 from datetime import date
 
   
-def add_parse_info(data):
+def get_key_value_pair(data) -> tuple:
     key = data.findChild('div', class_ = 't').text
     value = data.findChild('div', class_ = 'i').text
     return (key, value)
@@ -13,7 +13,7 @@ def add_parse_info(data):
 def extract_attributes(data) -> dict:
     dict = {}
     for attribute in data.findChildren('div', class_= 'c'):
-        (key, value) = add_parse_info(attribute)
+        (key, value) = get_key_value_pair(attribute)
         dict[key] = value
     return dict
 
