@@ -48,12 +48,12 @@ def parse_prices(data) -> Prices:
 
     return Prices(result['AMD'], result['USD'], result['RUB'])
 
-def parse_ads_description(data):
+def parse_description(data):
     description = data.find('div', class_ = 'body').text
     
     return description.replace('Переведено с армянского','')
 
-def landlord_type_parse(data):
+def parse_landlord_type(data):
     landlord_type = data.find('span', class_ = 'clabel')
 
     if (landlord_type == None):
@@ -61,7 +61,7 @@ def landlord_type_parse(data):
     else:
         return LandLordType.realtor
 
-def parse_datetime(string) -> date:
+def str_to_date_converter(string) -> date:
     string = string.split('.')
     year = int(string[2])
     month = int(string[1])
@@ -77,9 +77,9 @@ def parse_dates(data):
 
     for date_span in date_span_list:
         if 'Размещено' in date_span.text:
-            created = parse_datetime(date_span.text.split(' ')[1])
+            created = str_to_date_converter(date_span.text.split(' ')[1])
         if 'Обновлено' in date_span.text:
-            updated = parse_datetime(date_span.text.split(' ')[1])
+            updated = str_to_date_converter(date_span.text.split(' ')[1])
 
     return created, updated
 
@@ -88,7 +88,7 @@ def parse_address(data):
     location = location_div.findChild('a').text
     return location
 
-def get_ads_photos(data): #work in progress
+def parse_images_list(data): #work in progress
     pics_div = data.find('div', class_ = 'p')
     pics_list = pics_div.findChildren('div')
 
@@ -132,8 +132,8 @@ def parse_ad_info(data):
     created = dates[0]
     updated = dates[1]
     prices = parse_prices(data)
-    description = parse_ads_description(data)
-    landlord_type = landlord_type_parse(data)
+    description = parse_description(data)
+    landlord_type = parse_landlord_type(data)
 
     return AdInfo(images_links, address, created, 
             updated, prices, description, 
