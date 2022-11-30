@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup as beauty
 from model import *
 from datetime import date
-  
-def get_key_value_pair(data) -> tuple:
+
+def get_key_value_pair(data):
     key = data.findChild('div', class_ = 't').text
     value = data.findChild('div', class_ = 'i').text
     return (key, value)
@@ -152,5 +152,3 @@ def get_ad_content(scraper, link):
     building_info = parse_building_info(data)
     apartment_info = parse_apartment_info(data)
     return ad_info, building_info, apartment_info
-
-
