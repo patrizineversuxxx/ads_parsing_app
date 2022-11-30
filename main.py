@@ -9,4 +9,4 @@ data = get_ad_content(scraper, '/ru/item/18599392')
 ad_info = data[0]
 building_info = data[1]
 apartment_info = data[2]
-print(0)
+pass
