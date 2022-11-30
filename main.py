@@ -23,18 +23,18 @@ def parse_building_info(data) -> BuildingInfo:
     return BuildingInfo(building_type, is_new, has_elevator, floor_number)
 
 def parse_apartment_info(data) -> ApartmentInfo:
-    dict = extract_attributes(data)
+    attributes = extract_attributes(data)
 
-    square = int(dict['Общая площадь'].split(' ')[0])
-    room_number = int(dict['Количество комнат']) 
-    smartin_number = int(dict['Количество санузлов'])
-    height = float(dict['Высота потолков'].split(' ')[0])
-    floor = int(dict['Этаж']) 
-    has_balcony = dict['Балкон'] != 'Нет'
-    is_furnitured = dict['Мебель'] != 'Нет'
-    renovation_type = RenovationType(dict['Ремонт'])
-    features = dict['Удобства']
-    household_features = dict['Бытовая техника']
+    square = int(attributes['Общая площадь'].split(' ')[0])
+    room_number = int(attributes['Количество комнат']) 
+    smartin_number = int(attributes['Количество санузлов'])
+    height = float(attributes['Высота потолков'].split(' ')[0])
+    floor = int(attributes['Этаж']) 
+    has_balcony = attributes['Балкон'] != 'Нет'
+    is_furnitured = attributes['Мебель'] != 'Нет'
+    renovation_type = RenovationType(attributes['Ремонт'])
+    features = attributes['Удобства']
+    household_features = attributes['Бытовая техника']
 
     return ApartmentInfo(square, room_number, smartin_number, 
                          height, floor, has_balcony, is_furnitured, 
@@ -87,6 +87,7 @@ def ads_parse(link):
 
     a = parse_building_info(ad_property_set[0])
     b = parse_apartment_info(ad_property_set[1])
+    с = ad_property_set[2]
     for ad_property in ad_property_set:
         for ad_property_content in ad_property:
             (key, value) = add_parse_info(ad_property_content)
