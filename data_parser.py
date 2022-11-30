@@ -57,9 +57,9 @@ def landlord_type_parse(data):
     landlord_type = data.find('span', class_ = 'clabel')
 
     if (landlord_type == None):
-        return LandLordType('Частное')
+        return LandLordType.private
     else:
-        return LandLordType('Агентство')
+        return LandLordType.realtor
 
 def parse_datetime(string) -> date:
     string = string.split('.')
