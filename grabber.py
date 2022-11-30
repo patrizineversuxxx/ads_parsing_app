@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup as beauty
 
 
 class Grabber:
-    def ads_grabber(scraper):
+    def grab(scraper):
         links = []
         for page_number in range(1, 251):
             url = f'https://list.am/ru/category/56/{page_number}/?pfreq=1&type=1&po=1'
