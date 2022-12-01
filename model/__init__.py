@@ -1,6 +1,5 @@
-from .ad_info import *
-from .apartment_info import *
-from .building_info import *
-from model import *
+from os.path import dirname, basename, isfile, join
+import glob
 
-__all__ = ['ad_info', 'apartment_info', 'building_info']
+modules = glob.glob(join(dirname(__file__), "*.py"))
+__all__ = [ basename(f)[:-3] for f in modules if isfile(f) and not f.endswith('__init__.py')]

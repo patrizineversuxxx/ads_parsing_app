@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup as beauty
-from model import *
-from datetime import date
+from model.ad_info import *
+from model.apartment_info import *
+from model.building_info import *
+import datetime
 
 
 def get_key_value_pair(data):
@@ -65,15 +67,6 @@ def parse_landlord_type(data):
         return LandLordType.realtor
 
 
-def str_to_date_converter(string) -> date:
-    string = string.split('.')
-    year = int(string[2])
-    month = int(string[1])
-    day = int(string[0])
-
-    return date(year, month, day)
-
-
 def parse_dates(data):
     footer = data.find('div', class_='footer')
     date_span_list = footer.select('span')
@@ -82,9 +75,9 @@ def parse_dates(data):
 
     for date_span in date_span_list:
         if 'Размещено' in date_span.text:
-            created = str_to_date_converter(date_span.text.split(' ')[1])
+            created = datetime.datetime.strptime(date_span.text.split(' ')[1].replace('.', '/'), '%d/%m/%Y')
         if 'Обновлено' in date_span.text:
-            updated = str_to_date_converter(date_span.text.split(' ')[1])
+            updated = datetime.datetime.strptime(date_span.text.split(' ')[1].replace('.', '/'), '%d/%m/%Y')
 
     return created, updated
 
