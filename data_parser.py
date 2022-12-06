@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup as beauty
 from model.ad_info import *
 from model.apartment_info import *
 from model.building_info import *
+from model.rules import *
 import datetime
 
 
