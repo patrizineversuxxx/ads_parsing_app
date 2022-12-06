@@ -29,7 +29,6 @@ class Prices:
 class AdInfo:
     def __init__(self,
                  image_links: list,
-                 address: str,
                  created: date,
                  updated: date,
                  prices: Prices,
@@ -37,7 +36,6 @@ class AdInfo:
                  landlord_type: LandLordType
                  ):
         self._image_links = image_links
-        self._address = address
         self._created = created
         self._updated = updated
         self._prices = prices
@@ -47,10 +45,6 @@ class AdInfo:
     @property
     def image_links(self) -> list:
         return self._image_links
-
-    @property
-    def address(self) -> str:
-        return self._address
 
     @property
     def created(self) -> date:

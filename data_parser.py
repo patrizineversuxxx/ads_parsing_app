@@ -6,14 +6,14 @@ from model.rules import *
 import datetime
 
 
-def get_key_value_pair(data) -> dict:
+def get_key_value_pair(data) -> tuple:
     key = data.findChild('div', class_='t').text
     value = data.findChild('div', class_='i').text
 
     return (key, value)
 
 
-def extract_attributes(data) -> dict:
+def extract_attributes(data) -> tuple:
     dict = {}
     for attribute in data.findChildren('div', class_='c'):
         (key, value) = get_key_value_pair(attribute)
@@ -22,7 +22,7 @@ def extract_attributes(data) -> dict:
     return dict
 
 
-def parse_currency(text) -> dict:
+def parse_currency(text) -> tuple:
     if '$' in text:
         value = int(text[1:].split(' ')[0].replace(',', ''))
         return ('USD', value)
@@ -115,7 +115,7 @@ def parse_building_info(attributes) -> BuildingInfo:
                         floor_number)
 
 
-def parse_apartment_info(attributes) -> ApartmentInfo:
+def parse_apartment_info(address, attributes) -> ApartmentInfo:
     square = int(attributes['Общая площадь'].split(' ')[0])
     room_number = int(attributes['Количество комнат'])
     smartin_number = int(attributes['Количество санузлов'])
@@ -127,21 +127,22 @@ def parse_apartment_info(attributes) -> ApartmentInfo:
     features = attributes['Удобства']
     household_features = attributes['Бытовая техника']
 
-    return ApartmentInfo(square,
-                         room_number,
-                         smartin_number,
-                         height,
-                         floor,
-                         has_balcony,
-                         is_furnitured,
-                         renovation_type,
-                         features,
-                         household_features)
+    return ApartmentInfo(
+        address,
+        square,
+        room_number,
+        smartin_number,
+        height,
+        floor,
+        has_balcony,
+        is_furnitured,
+        renovation_type,
+        features,
+        household_features)
 
 
 def parse_ad_info(data) -> AdInfo:
     images_links = list
-    address = parse_address(data)
     dates = parse_dates(data)
     created = dates[0]
     updated = dates[1]
@@ -150,7 +151,6 @@ def parse_ad_info(data) -> AdInfo:
     landlord_type = parse_landlord_type(data)
 
     return AdInfo(images_links,
-                  address,
                   created,
                   updated,
                   prices,
@@ -185,9 +185,9 @@ def get_ad_content(scraper, link):
     data = soup.find(id='pcontent')
 
     attributes = extract_attributes(data)
-
+    address = parse_address(data)
     ad_info = parse_ad_info(data)
     building_info = parse_building_info(attributes)
-    apartment_info = parse_apartment_info(attributes)
+    apartment_info = parse_apartment_info(address, attributes)
     rules = parse_rules(attributes)
     return ad_info, building_info, apartment_info, rules

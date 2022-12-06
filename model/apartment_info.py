@@ -12,6 +12,7 @@ class RenovationType(Enum):
 
 class ApartmentInfo:
     def __init__(self,
+                 address: str,
                  square: int,
                  room_number: int,
                  smartin_number: int,
@@ -23,6 +24,7 @@ class ApartmentInfo:
                  features: str,
                  household_features: str
                  ):
+        self._address = address
         self._square = square
         self._room_number = room_number
         self._smartin_number = smartin_number
@@ -33,6 +35,10 @@ class ApartmentInfo:
         self._renovation_type = renovation_type
         self._features = features
         self._household_features = household_features
+
+    @property
+    def address(self) -> str:
+        return self._address
 
     @property
     def square(self) -> int:
