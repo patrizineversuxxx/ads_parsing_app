@@ -6,7 +6,7 @@ from model.rules import *
 import datetime
 
 
-def get_key_value_pair(data):
+def get_key_value_pair(data) -> dict:
     key = data.findChild('div', class_='t').text
     value = data.findChild('div', class_='i').text
 
@@ -22,7 +22,7 @@ def extract_attributes(data) -> dict:
     return dict
 
 
-def parse_currency(text):
+def parse_currency(text) -> dict:
     if '$' in text:
         value = int(text[1:].split(' ')[0].replace(',', ''))
         return ('USD', value)
@@ -55,13 +55,13 @@ def parse_prices(data) -> Prices:
     return Prices(result['AMD'], result['USD'], result['RUB'])
 
 
-def parse_description(data):
+def parse_description(data) -> str:
     description = data.find('div', class_='body').text
 
     return description.replace('Переведено с армянского', '')
 
 
-def parse_landlord_type(data):
+def parse_landlord_type(data) -> LandLordType:
     landlord_type = data.find('span', class_='clabel')
 
     if (landlord_type == None):
@@ -70,7 +70,7 @@ def parse_landlord_type(data):
         return LandLordType.realtor
 
 
-def parse_dates(data):
+def parse_dates(data) -> date:
     footer = data.find('div', class_='footer')
     date_span_list = footer.select('span')
     created = 0
@@ -87,7 +87,7 @@ def parse_dates(data):
     return created, updated
 
 
-def parse_address(data):
+def parse_address(data) -> str:
     location_div = data.find('div', class_='loc')
     location = location_div.findChild('a').text
     return location
@@ -139,7 +139,7 @@ def parse_apartment_info(attributes) -> ApartmentInfo:
                          household_features)
 
 
-def parse_ad_info(data):
+def parse_ad_info(data) -> AdInfo:
     images_links = list
     address = parse_address(data)
     dates = parse_dates(data)
@@ -158,7 +158,7 @@ def parse_ad_info(data):
                   landlord_type)
 
 
-def parse_rules(attributes):
+def parse_rules(attributes) -> Rules:
     apart_capacity = int(attributes['Kоличество гостей'])
     is_kids_allowed = RulesValues(attributes['Можно с детьми'])
     is_animals_allowed = RulesValues(attributes['Можно с животными'])
