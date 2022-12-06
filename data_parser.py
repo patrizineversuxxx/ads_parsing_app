@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup as beauty
 from model.ad_info import *
+from model.ad_meta import AdMeta
 from model.apartment_info import *
 from model.building_info import *
 from model.rules import *
@@ -190,4 +191,4 @@ def get_ad_content(scraper, link):
     building_info = parse_building_info(attributes)
     apartment_info = parse_apartment_info(address, attributes)
     rules = parse_rules(attributes)
-    return ad_info, building_info, apartment_info, rules
+    return AdMeta(ad_info, building_info, apartment_info, rules)
