@@ -9,7 +9,7 @@ import datetime
 def get_key_value_pair(data):
     key = data.findChild('div', class_='t').text
     value = data.findChild('div', class_='i').text
-    
+
     return (key, value)
 
 
@@ -162,13 +162,13 @@ def parse_rules(attributes):
     apart_capacity = int(attributes['Kоличество гостей'])
     is_kids_allowed = RulesValues(attributes['Можно с детьми'])
     is_animals_allowed = RulesValues(attributes['Можно с животными'])
-    communal_payments = attributes['Коммунальные платежи']
+    utility_payments = attributes['Коммунальные платежи']
     has_prepayment = attributes['Предоплата']
 
     return Rules(apart_capacity,
                  is_kids_allowed,
                  is_animals_allowed,
-                 communal_payments,
+                 utility_payments,
                  has_prepayment)
 
 
