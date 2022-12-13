@@ -2,9 +2,19 @@ from enum import Enum
 
 
 class RulesValues(Enum):
-    allowed = "Да"
-    not_allowed = 'Нет'
-    discussiable = 'По договоренности'
+    allowed = 1
+    not_allowed = 2
+    discussiable = 3
+
+
+@staticmethod
+def from_str(value: str) -> RulesValues:
+    global map
+    map = {
+        'Да': RulesValues.allowed,
+        'Нет': RulesValues.not_allowed,
+        'По договоренности': RulesValues.discussiable
+    }
 
 
 class Rules:

@@ -2,12 +2,28 @@ from enum import Enum
 
 
 class RenovationType(Enum):
-    WithoutRenovation = 'Без ремонта'
-    PartlyRenovated = 'Частичный ремонт'
-    Redecorated = 'Косметический ремонт'
-    EuroRenovation = 'Евроремонт'
-    DesignersRenovation = 'Дизайнерский ремонт'
-    MajorOverhauled = 'Капитальный ремонт'
+    WithoutRenovation = 1
+    PartlyRenovated = 2
+    Redecorated = 3
+    EuroRenovation = 4
+    DesignersRenovation = 5
+    MajorOverhauled = 6
+
+
+@staticmethod
+def from_str(value: str) -> RenovationType:
+    global map
+    map = {
+        'Без ремонта': RenovationType.WithoutRenovation,
+        'Частичный ремонт': RenovationType.PartlyRenovated,
+        'Косметический ремонт': RenovationType.Redecorated,
+        'Евроремонт': RenovationType.EuroRenovation,
+        'Дизайнерский ремонт': RenovationType.DesignersRenovation,
+        'Капитальный ремонт': RenovationType.MajorOverhauled
+    }
+
+    assert value in map
+    return map[value]
 
 
 class ApartmentInfo:

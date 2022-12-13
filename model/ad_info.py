@@ -3,8 +3,17 @@ from datetime import date
 
 
 class LandLordType(Enum):
-    realtor = "Агентство"
-    private = "Частное"
+    realtor = 1
+    private = 2
+
+
+@staticmethod
+def from_str(value: str) -> LandLordType:
+    global map
+    map = {
+        'Агентство': LandLordType.realtor,
+        'Частное': LandLordType.private
+    }
 
 
 class Prices:

@@ -2,12 +2,28 @@ from enum import Enum
 
 
 class BuildingType(Enum):
-    Monolith = 'Монолит'
-    Stone = 'Каменное'
-    Panel = 'Панельное'
-    Cassette = 'Кассетное'
-    Wooden = 'Деревянное'
-    Brick = 'Кирпичное'
+    Monolith = 1
+    Stone = 2
+    Panel = 3
+    Cassette = 4
+    Wooden = 5
+    Brick = 6
+
+
+@staticmethod
+def from_str(value: str) -> BuildingType:
+    global map
+    map = {
+        'Монолит': BuildingType.Monolith,
+        'Каменное': BuildingType.Stone,
+        'Панельное': BuildingType.Panel,
+        'Кассетное': BuildingType.Cassette,
+        'Деревянное': BuildingType.Wooden,
+        'Кирпичное': BuildingType.Brick,
+    }
+
+    assert value in map
+    return map[value]
 
 
 class BuildingInfo:
