@@ -11,7 +11,7 @@ class BuildingType(Enum):
 
 
 @staticmethod
-def from_str(value: str) -> BuildingType:
+def building_type_from_str(value: str) -> BuildingType:
     global map
     map = {
         'Монолит': BuildingType.Monolith,

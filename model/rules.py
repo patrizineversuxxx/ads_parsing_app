@@ -8,13 +8,16 @@ class RulesValues(Enum):
 
 
 @staticmethod
-def from_str(value: str) -> RulesValues:
+def rules_value_from_str(value: str) -> RulesValues:
     global map
     map = {
         'Да': RulesValues.allowed,
         'Нет': RulesValues.not_allowed,
         'По договоренности': RulesValues.discussiable
     }
+
+    assert value in map
+    return map[value]
 
 
 class Rules:

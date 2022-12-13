@@ -11,7 +11,7 @@ class RenovationType(Enum):
 
 
 @staticmethod
-def from_str(value: str) -> RenovationType:
+def renovation_type_from_str(value: str) -> RenovationType:
     global map
     map = {
         'Без ремонта': RenovationType.WithoutRenovation,

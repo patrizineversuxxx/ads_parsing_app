@@ -8,7 +8,7 @@ class LandLordType(Enum):
 
 
 @staticmethod
-def from_str(value: str) -> LandLordType:
+def landlord_type_from_str(value: str) -> LandLordType:
     global map
     map = {
         'Агентство': LandLordType.realtor,
