@@ -2,6 +2,7 @@ import cloudscraper
 from grabber import *
 from data_parser import *
 
+
 scraper = cloudscraper.create_scraper(delay=10, browser='chrome')
 ads_links = Grabber.grab(scraper)
 
