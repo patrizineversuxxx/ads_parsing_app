@@ -2,7 +2,7 @@ import dbclass
 from peewee import *
 
 
-class ApartmentInfoDb(Model):
+class ApartmentInfoDAO(Model):
     address = TextField()
     square = IntegerField()
     room_number = IntegerField()

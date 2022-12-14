@@ -2,7 +2,7 @@ import dbclass
 from peewee import *
 
 
-class AdInfo(Model):
+class AdInfoDAO(Model):
     image_links = TextField()
     created = DateField()
     updated = DateField()

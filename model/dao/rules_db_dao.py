@@ -2,7 +2,7 @@ import dbclass
 from peewee import *
 
 
-class RulesDb(Model):
+class RulesDAO(Model):
     apart_capacity = IntegerField()
     is_kids_allowed = IntegerField()
     is_animals_allowed = IntegerField()
