@@ -9,21 +9,20 @@ class BuildingType(Enum):
     Wooden = 5
     Brick = 6
 
+    @staticmethod
+    def from_str(value: str):
+        global map
+        map = {
+            'Монолит': BuildingType.Monolith,
+            'Каменное': BuildingType.Stone,
+            'Панельное': BuildingType.Panel,
+            'Кассетное': BuildingType.Cassette,
+            'Деревянное': BuildingType.Wooden,
+            'Кирпичное': BuildingType.Brick,
+        }
 
-@staticmethod
-def building_type_from_str(value: str) -> BuildingType:
-    global map
-    map = {
-        'Монолит': BuildingType.Monolith,
-        'Каменное': BuildingType.Stone,
-        'Панельное': BuildingType.Panel,
-        'Кассетное': BuildingType.Cassette,
-        'Деревянное': BuildingType.Wooden,
-        'Кирпичное': BuildingType.Brick,
-    }
-
-    assert value in map
-    return map[value]
+        assert value in map
+        return map[value]
 
 
 class BuildingInfo:

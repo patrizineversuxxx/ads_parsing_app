@@ -9,21 +9,20 @@ class RenovationType(Enum):
     DesignersRenovation = 5
     MajorOverhauled = 6
 
+    @staticmethod
+    def from_str(value: str):
+        global map
+        map = {
+            'Без ремонта': RenovationType.WithoutRenovation,
+            'Частичный ремонт': RenovationType.PartlyRenovated,
+            'Косметический ремонт': RenovationType.Redecorated,
+            'Евроремонт': RenovationType.EuroRenovation,
+            'Дизайнерский ремонт': RenovationType.DesignersRenovation,
+            'Капитальный ремонт': RenovationType.MajorOverhauled
+        }
 
-@staticmethod
-def renovation_type_from_str(value: str) -> RenovationType:
-    global map
-    map = {
-        'Без ремонта': RenovationType.WithoutRenovation,
-        'Частичный ремонт': RenovationType.PartlyRenovated,
-        'Косметический ремонт': RenovationType.Redecorated,
-        'Евроремонт': RenovationType.EuroRenovation,
-        'Дизайнерский ремонт': RenovationType.DesignersRenovation,
-        'Капитальный ремонт': RenovationType.MajorOverhauled
-    }
-
-    assert value in map
-    return map[value]
+        assert value in map
+        return map[value]
 
 
 class ApartmentInfo:

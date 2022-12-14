@@ -6,14 +6,16 @@ class LandLordType(Enum):
     realtor = 1
     private = 2
 
+    @staticmethod
+    def from_str(value: str):
+        global map
+        map = {
+            'Агентство': LandLordType.realtor,
+            'Частное': LandLordType.private
+        }
 
-@staticmethod
-def landlord_type_from_str(value: str) -> LandLordType:
-    global map
-    map = {
-        'Агентство': LandLordType.realtor,
-        'Частное': LandLordType.private
-    }
+        assert value in map
+        return map[value]
 
 
 class Prices:

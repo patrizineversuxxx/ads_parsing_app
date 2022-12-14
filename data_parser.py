@@ -105,8 +105,7 @@ def parse_images_list(data):  # work in progress
 
 
 def parse_building_info(attributes) -> BuildingInfo:
-    building_type = BuildingType(
-        building_type_from_str(attributes['Тип здания']))
+    building_type = BuildingType.from_str(attributes['Тип здания'])
     is_new = attributes['Новостройка'] == 'Да'
     has_elevator = attributes['Лифт'] == 'Есть'
     floor_number = int(attributes['Этажей в доме'])
@@ -125,8 +124,7 @@ def parse_apartment_info(address, attributes) -> ApartmentInfo:
     floor = int(attributes['Этаж'])
     has_balcony = attributes['Балкон'] != 'Нет'
     is_furnitured = attributes['Мебель'] != 'Нет'
-    renovation_type = RenovationType(
-        renovation_type_from_str(attributes['Ремонт']))
+    renovation_type = RenovationType.from_str(attributes['Ремонт'])
     features = attributes['Удобства']
     household_features = attributes['Бытовая техника']
 
@@ -163,10 +161,8 @@ def parse_ad_info(data) -> AdInfo:
 
 def parse_rules(attributes) -> Rules:
     apart_capacity = int(attributes['Kоличество гостей'])
-    is_kids_allowed = RulesValues(
-        rules_value_from_str(attributes['Можно с детьми']))
-    is_animals_allowed = RulesValues(
-        rules_value_from_str(attributes['Можно с животными']))
+    is_kids_allowed = RulesValues.from_str(attributes['Можно с детьми'])
+    is_animals_allowed = RulesValues.from_str(attributes['Можно с животными'])
     utility_payments = attributes['Коммунальные платежи']
     has_prepayment = attributes['Предоплата']
 
@@ -195,4 +191,4 @@ def get_ad_content(scraper, link):
     building_info = parse_building_info(attributes)
     apartment_info = parse_apartment_info(address, attributes)
     rules = parse_rules(attributes)
-    return AdMeta(ad_info, building_info, apartment_info, rules)
+    return AdMeta(ad_info, apartment_info, building_info, rules)

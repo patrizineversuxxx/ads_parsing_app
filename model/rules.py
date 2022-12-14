@@ -6,18 +6,17 @@ class RulesValues(Enum):
     not_allowed = 2
     discussiable = 3
 
+    @staticmethod
+    def from_str(value: str):
+        global map
+        map = {
+            'Да': RulesValues.allowed,
+            'Нет': RulesValues.not_allowed,
+            'По договоренности': RulesValues.discussiable
+        }
 
-@staticmethod
-def rules_value_from_str(value: str) -> RulesValues:
-    global map
-    map = {
-        'Да': RulesValues.allowed,
-        'Нет': RulesValues.not_allowed,
-        'По договоренности': RulesValues.discussiable
-    }
-
-    assert value in map
-    return map[value]
+        assert value in map
+        return map[value]
 
 
 class Rules:
