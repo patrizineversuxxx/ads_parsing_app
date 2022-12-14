@@ -1,7 +1,7 @@
-from model.ad_info import *
-from model.apartment_info import *
-from model.building_info import *
-from model.rules import *
+from .ad_info import *
+from .apartment_info import *
+from .building_info import *
+from .rules import *
 
 
 class AdMeta:

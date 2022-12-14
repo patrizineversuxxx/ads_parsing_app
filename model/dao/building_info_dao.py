@@ -1,5 +1,5 @@
 from peewee import *
-from dbclass import db
+from . import dbclass
 
 
 class BuildingInfoDAO(Model):
@@ -9,5 +9,5 @@ class BuildingInfoDAO(Model):
     floor_number_db = IntegerField()
 
     class Meta:
-        database = db
+        database = dbclass.db
 

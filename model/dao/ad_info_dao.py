@@ -1,4 +1,4 @@
-import dbclass
+from . import dbclass
 from peewee import *
 
 

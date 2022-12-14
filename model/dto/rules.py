@@ -50,4 +50,4 @@ class Rules:
 
     @property
     def has_prepayment(self):
-        return self._utility_payments
+        return self._has_prepayment
