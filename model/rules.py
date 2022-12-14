@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class RulesValues(Enum):
+class Allowance(Enum):
     allowed = 1
     not_allowed = 2
     discussiable = 3
@@ -10,9 +10,9 @@ class RulesValues(Enum):
     def from_str(value: str):
         global map
         map = {
-            'Да': RulesValues.allowed,
-            'Нет': RulesValues.not_allowed,
-            'По договоренности': RulesValues.discussiable
+            'Да': Allowance.allowed,
+            'Нет': Allowance.not_allowed,
+            'По договоренности': Allowance.discussiable
         }
 
         assert value in map
@@ -21,8 +21,8 @@ class RulesValues(Enum):
 
 class Rules:
     def __init__(self, apart_capacity: int,
-                 is_kids_allowed: RulesValues,
-                 is_animals_allowed: RulesValues,
+                 is_kids_allowed: Allowance,
+                 is_animals_allowed: Allowance,
                  utility_payments: str,
                  has_prepayment: str
                  ):

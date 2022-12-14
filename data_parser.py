@@ -161,8 +161,8 @@ def parse_ad_info(data) -> AdInfo:
 
 def parse_rules(attributes) -> Rules:
     apart_capacity = int(attributes['Kоличество гостей'])
-    is_kids_allowed = RulesValues.from_str(attributes['Можно с детьми'])
-    is_animals_allowed = RulesValues.from_str(attributes['Можно с животными'])
+    is_kids_allowed = Allowance.from_str(attributes['Можно с детьми'])
+    is_animals_allowed = Allowance.from_str(attributes['Можно с животными'])
     utility_payments = attributes['Коммунальные платежи']
     has_prepayment = attributes['Предоплата']
 
