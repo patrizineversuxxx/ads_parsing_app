@@ -36,6 +36,10 @@ class Prices:
     def rub(self) -> int:
         return self._rub
 
+    def to_str(self) -> str:
+        #print(f'Hello {name}! This is {program}')
+        return str(f'AMD: {self.amd}, USD: {self.usd}, RUB: {self.rub}')
+
 
 class AdInfo:
     def __init__(self,

@@ -6,7 +6,36 @@ from dto.ad_info import *
 from dto.apartment_info import *
 from dto.building_info import *
 from dto.rules import *
-from dao.dbclass import db
+
+
+def price_parse(text: str) -> Prices:
+    text = text.split(',')
+    return Prices(int(text[0].replace('AMD: ', '')),
+                  int(text[1].replace('USD: ', '')),
+                  int(text[2].replace('RUB: ', '')))
+
+
+class AdInfoConverter:
+    @staticmethod
+    def to_dao(ad_info: AdInfo) -> AdInfoDAO:
+        return AdInfoDAO(image_links=ad_info.image_links,
+                         created=ad_info.created,
+                         updated=ad_info.updated,
+                         prices=ad_info.prices.to_str(),
+                         description=ad_info.description,
+                         landlord_type=ad_info.landlord_type.value
+                         )
+
+    @staticmethod
+    def to_dto(ad_info_dao: AdInfoDAO) -> AdInfo:
+        return AdInfo(ad_info_dao.image_links.split(' '),
+                      ad_info_dao.created,
+                      ad_info_dao.updated,
+                      price_parse(ad_info_dao.prices),
+                      ad_info_dao.description,
+                      LandLordType(ad_info_dao.landlord_type)
+                      )
+
 
 
 class ApartmentInfoConverter:
@@ -24,7 +53,6 @@ class ApartmentInfoConverter:
                                 renovation_type=apartment_info.renovation_type.value,
                                 features=apartment_info.features,
                                 household_features=apartment_info.household_features
-
                                 )
 
     @staticmethod
@@ -73,7 +101,8 @@ class RulesConverter:
                         is_kids_allowed=rules.is_kids_allowed.value,
                         is_animals_allowed=rules.is_animals_allowed.value,
                         utility_payments=rules.utility_payments,
-                        has_prepayment=rules.has_prepayment)
+                        has_prepayment=rules.has_prepayment
+                        )
 
     @staticmethod
     def to_dto(rules_dao: RulesDAO) -> Rules:
