@@ -1,5 +1,5 @@
-from . import dbclass
 from peewee import *
+from . import dbclass
 
 
 class RulesDAO(Model):
