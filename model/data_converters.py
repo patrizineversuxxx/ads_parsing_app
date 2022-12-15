@@ -37,7 +37,6 @@ class AdInfoConverter:
                       )
 
 
-
 class ApartmentInfoConverter:
     @staticmethod
     def to_dao(apartment_info: ApartmentInfo) -> ApartmentInfoDAO:
