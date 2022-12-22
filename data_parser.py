@@ -1,9 +1,10 @@
 from bs4 import BeautifulSoup as beauty
-from model.ad_info import *
-from model.ad_meta import AdMeta
-from model.apartment_info import *
-from model.building_info import *
-from model.rules import *
+from model.dto.ad_info import *
+from model.dto.ad_meta import *
+from model.dto.apartment_info import *
+from model.dto.building_info import *
+from model.dto.rules import *
+
 import datetime
 
 
