@@ -1,11 +1,11 @@
-from dao.ad_info_dao import AdInfoDAO
-from dao.apartment_info_dao import ApartmentInfoDAO
-from dao.building_info_dao import BuildingInfoDAO
-from dao.rules_dao import RulesDAO
-from dto.ad_info import *
-from dto.apartment_info import *
-from dto.building_info import *
-from dto.rules import *
+from .dao.ad_info_dao import AdInfoDAO
+from .dao.apartment_info_dao import ApartmentInfoDAO
+from .dao.building_info_dao import BuildingInfoDAO
+from .dao.rules_dao import RulesDAO
+from .dto.ad_info import *
+from .dto.apartment_info import *
+from .dto.building_info import *
+from .dto.rules import *
 
 
 def price_parse(text: str) -> Prices:

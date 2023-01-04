@@ -120,7 +120,7 @@ def parse_building_info(attributes) -> BuildingInfo:
 def parse_apartment_info(address, attributes) -> ApartmentInfo:
     square = int(attributes['Общая площадь'].split(' ')[0])
     room_number = int(attributes['Количество комнат'])
-    smartin_number = int(attributes['Количество санузлов'])
+    smartin_number = int(attributes['Количество санузлов'].split(' ')[0])
     height = float(attributes['Высота потолков'].split(' ')[0])
     floor = int(attributes['Этаж'])
     has_balcony = attributes['Балкон'] != 'Нет'
@@ -161,7 +161,7 @@ def parse_ad_info(data) -> AdInfo:
 
 
 def parse_rules(attributes) -> Rules:
-    apart_capacity = int(attributes['Kоличество гостей'])
+    apart_capacity = int(attributes['Kоличество гостей'].split('+')[0])
     is_kids_allowed = Allowance.from_str(attributes['Можно с детьми'])
     is_animals_allowed = Allowance.from_str(attributes['Можно с животными'])
     utility_payments = attributes['Коммунальные платежи']
